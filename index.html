@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logan Dixon — Independent AI Researcher &amp; Educator</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230284c7'/%3E%3Ctext x='16' y='22' font-family='Segoe UI,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'%3ELD%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Logan Dixon — independent AI researcher and educator. Interactive AI explainers, a reproducible GRPO study, and work on the variational structure of RLVR methods.">
+<link rel="canonical" href="https://lmdixon23.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lmdixon23.github.io/">
+<meta property="og:title" content="Logan Dixon — Independent AI Researcher & Educator">
+<meta property="og:description" content="Interactive AI explainers, a reproducible GRPO study, and work on the variational structure of RLVR methods.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://lmdixon23.github.io/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logan Dixon — Independent AI Researcher & Educator">
+<meta name="twitter:image" content="https://lmdixon23.github.io/preview.png">
+<meta name="twitter:title" content="Logan Dixon — Independent AI Researcher & Educator">
+<meta name="twitter:description" content="Interactive AI explainers, a reproducible GRPO study, and work on the variational structure of RLVR methods.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Logan Dixon",
+  "url": "https://lmdixon23.github.io/",
+  "jobTitle": "Independent AI Researcher & Educator",
+  "email": "mailto:lmdixon23@gmail.com",
+  "sameAs": ["https://github.com/lmdixon23", "https://www.linkedin.com/in/logan-dixon-b1bb43329/"],
+  "knowsAbout": ["Reinforcement learning", "RLVR", "GRPO", "Machine learning", "AI education", "Interactive visualization"]
+}
+</script>
+<style>
+  :root {
+    --bg: #fefdf8; --fg: #1f2937; --muted: #6b7280; --accent: #0284c7; --accent-2: #6366f1;
+    --card: #ffffff; --border: #e5e7eb; --soft: #f1f5f9; --glow: rgba(2,132,199,.10);
+  }
+  body.dark {
+    --bg: #0f172a; --fg: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8; --accent-2: #818cf8;
+    --card: #1e293b; --border: #334155; --soft: #1e293b; --glow: rgba(56,189,248,.15);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg); line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    transition: background .2s, color .2s;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 72px 0 28px; text-align: center; background: radial-gradient(ellipse at top, var(--glow), transparent 70%); position: relative; }
+  h1 { margin: 0 0 10px; font-size: clamp(2.2rem, 6vw, 3.4rem);
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .tagline { max-width: 620px; margin: 0 auto; color: var(--muted); font-size: 1.12rem; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 18px; border-radius: 9px;
+    text-decoration: none; font-weight: 600; font-size: .95rem; border: 1px solid var(--border);
+    background: var(--card); color: var(--fg); transition: transform .15s, border-color .15s, box-shadow .15s; }
+  .btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: #fff; border: none; }
+  .btn:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,.07); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .theme-toggle { position: absolute; top: 20px; right: 24px; background: var(--card); color: var(--fg);
+    border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 1rem; }
+  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  main { padding: 24px 0 72px; }
+  section { margin: 44px 0; }
+  h2 { font-size: 1.5rem; margin: 0 0 16px; }
+  .lede { color: var(--fg); font-size: 1.05rem; max-width: 680px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; }
+  .card h3 { margin: 0 0 8px; font-size: 1.18rem; }
+  .card p { margin: 0 0 14px; color: var(--muted); font-size: .96rem; flex: 1; }
+  .card .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: .9rem; font-weight: 600; }
+  .tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--accent); background: var(--soft); border-radius: 5px; padding: 3px 8px; margin-bottom: 10px; align-self: flex-start; }
+  footer { border-top: 1px solid var(--border); padding: 32px 0 56px; text-align: center; color: var(--muted); }
+  footer a { font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+<header>
+  <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+  <div class="wrap">
+    <h1>Logan Dixon</h1>
+    <p class="tagline">Independent AI researcher &amp; educator. I make hard machine-learning ideas legible — in code you can run and in the browser, with a slider you can drag.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="https://lmdixon23.github.io/ai-playgrounds/">▶ AI Playgrounds (live)</a>
+      <a class="btn" href="https://github.com/lmdixon23">GitHub</a>
+      <a class="btn" href="mailto:lmdixon23@gmail.com">Email</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="about">
+    <h2>About</h2>
+    <p class="lede">I build interactive explainers and reproducible studies of how modern AI methods actually work, and I teach introductory AI. I'm a computer-science master's student (Western Governors University) and an independent researcher, moving toward research and AI-scientist work. The through-line across everything below: take a result that's usually buried in a paper or a static figure and turn it into something you can run, drag, and break.</p>
+  </section>
+
+  <section id="work">
+    <h2>Selected work</h2>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">Live</span>
+        <h3>AI Playgrounds</h3>
+        <p>Twelve single-file interactive demos of core AI concepts — search &amp; A*, Bayesian networks, KNN, overfitting, neural nets, k-means, convolutions, Q-learning, logic/SAT, local search, Wumpus World — mapped to the Russell &amp; Norvig syllabus. No install, bilingual EN/中文, MIT.</p>
+        <div class="links">
+          <a href="https://lmdixon23.github.io/ai-playgrounds/">Open the live demo →</a>
+          <a href="https://github.com/lmdixon23/ai-playgrounds">Source →</a>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">Reproduction</span>
+        <h3>GRPO's ranking, reproduced</h3>
+        <p>A minimal, CPU-only study that recovers the <em>qualitative ranking</em> from Figure 5 of DeepSeekMath (Shao et al., 2024): RFT / Online RFT / GRPO+OS at 0.18 / 0.95 / 0.99 on a synthetic verifiable-reward task (mean of 3 seeds), in under a minute. RFT, Online RFT, and GRPO+OS share one training loop.</p>
+        <div class="links">
+          <a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/grpo_minimal">Code &amp; method →</a>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">In preparation</span>
+        <h3>RLVR Operator Series</h3>
+        <p>A short technical series arguing that the recent RLVR / GRPO methods are knob-turns on a single regularized-greedy operator — not a grab bag of unrelated tricks. The drafts are in preparation and out for expert feedback; the companion code, a pedagogical "regularized operator zoo," is already public.</p>
+        <div class="links">
+          <a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/regularized_operator_zoo">Companion code →</a>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">Portfolio</span>
+        <h3>Code portfolio</h3>
+        <p>A working portfolio across AI engineering (RAG, agents, evals), machine learning, Rust protocol implementations, data engineering, and network security — each project tested, each README honest about what's implemented versus aspirational.</p>
+        <div class="links">
+          <a href="https://github.com/lmdixon23/my_dev_projects">Browse on GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="lede">Open to research and AI-engineering roles, and to collaboration on making AI methods legible. Reach me at <a href="mailto:lmdixon23@gmail.com">lmdixon23@gmail.com</a> or on <a href="https://github.com/lmdixon23">GitHub</a> and <a href="https://www.linkedin.com/in/logan-dixon-b1bb43329/">LinkedIn</a>.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Logan Dixon · A single static page — no tracking, no cookies.</div>
+</footer>
+
+<script>
+  (function () {
+    var KEY = 'theme', btn = document.getElementById('themeBtn');
+    function apply(t) { document.body.classList.toggle('dark', t === 'dark'); btn.textContent = t === 'dark' ? '☀️' : '🌙'; }
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    apply(saved);
+    btn.addEventListener('click', function () {
+      var t = document.body.classList.contains('dark') ? 'light' : 'dark';
+      apply(t); try { localStorage.setItem(KEY, t); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
