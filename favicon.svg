@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">LD monogram</title>
+  <rect width="64" height="64" rx="15" fill="#102a43"/>
+  <path d="M16 16h7v26h15v6H16V16Zm27 0h8.5c9.7 0 15.5 5.9 15.5 16s-5.8 16-15.5 16H43V16Zm7 6v20h1.2c5.7 0 8.6-3.4 8.6-10s-2.9-10-8.6-10H50Z" transform="translate(-7 0)" fill="#eaf2f8"/>
+  <rect x="8" y="52" width="48" height="3" rx="1.5" fill="#2cb1bc"/>
+</svg>

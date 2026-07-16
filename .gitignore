@@ -1,0 +1,10 @@
+# Local and generated files
+_local/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Local preview output
+_site/
+*.log

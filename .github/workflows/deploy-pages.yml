@@ -1,36 +1,65 @@
-name: Deploy to GitHub Pages
+name: Verify and deploy Pages
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
-# Let this workflow publish Pages even though the repo's default token is read-only.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# One deploy at a time; let an in-progress run finish.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Verify canonical files
+        run: python scripts/verify_sha256_manifest.py
+
+      - name: Verify site structure
+        run: python scripts/verify_site.py
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Build deployment directory
+        run: |
+          mkdir _site
+          cp .nojekyll 404.html favicon.svg index.html preview.png preview.svg robots.txt sitemap.xml _site/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+          include-hidden-files: true
+
   deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload site (repo root)
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

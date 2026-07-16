@@ -1,166 +1,619 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Logan Dixon — Independent AI Researcher &amp; Educator</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230284c7'/%3E%3Ctext x='16' y='22' font-family='Segoe UI,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'%3ELD%3C/text%3E%3C/svg%3E">
-<meta name="description" content="Logan Dixon — independent AI researcher and educator. Interactive AI explainers, a reproducible GRPO study, and work on the variational structure of RLVR methods.">
-<link rel="canonical" href="https://lmdixon23.github.io/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://lmdixon23.github.io/">
-<meta property="og:title" content="Logan Dixon — Independent AI Researcher & Educator">
-<meta property="og:description" content="Interactive AI explainers, a reproducible GRPO study, and work on the variational structure of RLVR methods.">
-<meta name="twitter:card" content="summary_large_image">
-<meta property="og:image" content="https://lmdixon23.github.io/preview.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Logan Dixon — Independent AI Researcher & Educator">
-<meta name="twitter:image" content="https://lmdixon23.github.io/preview.png">
-<meta name="twitter:title" content="Logan Dixon — Independent AI Researcher & Educator">
-<meta name="twitter:description" content="Interactive AI explainers, a reproducible GRPO study, and work on the variational structure of RLVR methods.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Logan Dixon",
-  "url": "https://lmdixon23.github.io/",
-  "jobTitle": "Independent AI Researcher & Educator",
-  "email": "mailto:lmdixon23@gmail.com",
-  "sameAs": ["https://github.com/lmdixon23", "https://www.linkedin.com/in/logan-dixon-b1bb43329/"],
-  "knowsAbout": ["Reinforcement learning", "RLVR", "GRPO", "Machine learning", "AI education", "Interactive visualization"]
-}
-</script>
-<style>
-  :root {
-    --bg: #fefdf8; --fg: #1f2937; --muted: #6b7280; --accent: #0284c7; --accent-2: #6366f1;
-    --card: #ffffff; --border: #e5e7eb; --soft: #f1f5f9; --glow: rgba(2,132,199,.10);
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logan Dixon — Mathematics, AI, and Reproducible Research</title>
+  <meta name="description" content="Independent research in nonlinear analysis, mathematical optimization, neural networks, and interactive AI education, with reproducible code and certified computation.">
+  <link rel="canonical" href="https://lmdixon23.github.io/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#102a43">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lmdixon23.github.io/">
+  <meta property="og:title" content="Logan Dixon — Mathematics, AI, and Reproducible Research">
+  <meta property="og:description" content="Research in nonlinear analysis, mathematical optimization, neural networks, and interactive AI education.">
+  <meta property="og:image" content="https://lmdixon23.github.io/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logan Dixon — mathematics, AI, and reproducible research">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Logan Dixon — Mathematics, AI, and Reproducible Research">
+  <meta name="twitter:description" content="Research in nonlinear analysis, mathematical optimization, neural networks, and interactive AI education.">
+  <meta name="twitter:image" content="https://lmdixon23.github.io/preview.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Logan Dixon",
+    "url": "https://lmdixon23.github.io/",
+    "jobTitle": "Independent Researcher and Computer Science Educator",
+    "email": "mailto:lmdixon23@gmail.com",
+    "sameAs": [
+      "https://orcid.org/0009-0001-0592-462X",
+      "https://github.com/lmdixon23",
+      "https://www.linkedin.com/in/logan-dixon-b1bb43329/"
+    ],
+    "knowsAbout": [
+      "Nonlinear analysis",
+      "Mathematical optimization",
+      "Neural networks",
+      "Machine learning",
+      "Reinforcement learning",
+      "Computer science education",
+      "Interactive visualization"
+    ]
   }
-  body.dark {
-    --bg: #0f172a; --fg: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8; --accent-2: #818cf8;
-    --card: #1e293b; --border: #334155; --soft: #1e293b; --glow: rgba(56,189,248,.15);
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; background: var(--bg); color: var(--fg); line-height: 1.6;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    transition: background .2s, color .2s;
-  }
-  a { color: var(--accent); }
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-  header { padding: 72px 0 28px; text-align: center; background: radial-gradient(ellipse at top, var(--glow), transparent 70%); position: relative; }
-  h1 { margin: 0 0 10px; font-size: clamp(2.2rem, 6vw, 3.4rem);
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .tagline { max-width: 620px; margin: 0 auto; color: var(--muted); font-size: 1.12rem; }
-  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
-  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 18px; border-radius: 9px;
-    text-decoration: none; font-weight: 600; font-size: .95rem; border: 1px solid var(--border);
-    background: var(--card); color: var(--fg); transition: transform .15s, border-color .15s, box-shadow .15s; }
-  .btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: #fff; border: none; }
-  .btn:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,.07); }
-  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .theme-toggle { position: absolute; top: 20px; right: 24px; background: var(--card); color: var(--fg);
-    border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 1rem; }
-  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  main { padding: 24px 0 72px; }
-  section { margin: 44px 0; }
-  h2 { font-size: 1.5rem; margin: 0 0 16px; }
-  .lede { color: var(--fg); font-size: 1.05rem; max-width: 680px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; }
-  .card h3 { margin: 0 0 8px; font-size: 1.18rem; }
-  .card p { margin: 0 0 14px; color: var(--muted); font-size: .96rem; flex: 1; }
-  .card .links { display: flex; flex-wrap: wrap; gap: 14px; font-size: .9rem; font-weight: 600; }
-  .tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
-    color: var(--accent); background: var(--soft); border-radius: 5px; padding: 3px 8px; margin-bottom: 10px; align-self: flex-start; }
-  footer { border-top: 1px solid var(--border); padding: 32px 0 56px; text-align: center; color: var(--muted); }
-  footer a { font-weight: 600; }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } .btn:hover { transform: none; } }
-</style>
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f5ef;
+      --surface: #fffdf8;
+      --surface-strong: #ffffff;
+      --ink: #102a43;
+      --ink-soft: #334e68;
+      --muted: #627d98;
+      --line: #d9e2ec;
+      --accent: #147d86;
+      --accent-strong: #0b5d65;
+      --accent-soft: #dff3f1;
+      --warm: #a65f2e;
+      --warm-soft: #f5e8dc;
+      --shadow: 0 18px 50px rgba(16, 42, 67, .08);
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #081821;
+      --surface: #0e2532;
+      --surface-strong: #102c3b;
+      --ink: #edf4f7;
+      --ink-soft: #c7d8df;
+      --muted: #97b0bc;
+      --line: #294553;
+      --accent: #6ed3d8;
+      --accent-strong: #9ae5e8;
+      --accent-soft: #153e45;
+      --warm: #e2a271;
+      --warm-soft: #3b2b22;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .22);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+      transition: background-color .2s ease, color .2s ease;
+    }
+    a { color: var(--accent-strong); text-underline-offset: .18em; }
+    a:hover { text-decoration-thickness: 2px; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+      transform: translateY(-150%);
+      padding: .65rem .9rem;
+      border-radius: .5rem;
+      background: var(--ink);
+      color: var(--bg);
+      text-decoration: none;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 750;
+      letter-spacing: -.02em;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: .8rem;
+      letter-spacing: .04em;
+    }
+    .nav-links { display: flex; align-items: center; gap: 22px; }
+    .nav-links a {
+      color: var(--ink-soft);
+      font-size: .92rem;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--accent-strong); }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 104px 0 86px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .48;
+      background-image:
+        linear-gradient(to right, color-mix(in srgb, var(--line) 34%, transparent) 1px, transparent 1px),
+        linear-gradient(to bottom, color-mix(in srgb, var(--line) 34%, transparent) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, .7fr);
+      gap: 70px;
+      align-items: end;
+    }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--accent-strong);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { text-wrap: balance; }
+    h1 {
+      margin: 0;
+      max-width: 790px;
+      font-family: var(--serif);
+      font-size: clamp(3.15rem, 8vw, 6.7rem);
+      font-weight: 600;
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .hero-kicker {
+      display: block;
+      margin-top: .22em;
+      color: var(--accent-strong);
+      font-size: .52em;
+      letter-spacing: -.035em;
+    }
+    .hero-copy {
+      max-width: 720px;
+      margin: 30px 0 0;
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, 2vw, 1.24rem);
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: .72rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: .92rem;
+      font-weight: 750;
+      text-decoration: none;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .3) inset;
+    }
+    .button.primary { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+    .button:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .hero-aside {
+      padding: 24px 0 4px 24px;
+      border-left: 1px solid var(--line);
+    }
+    .hero-aside p { margin: 0; color: var(--muted); font-size: .88rem; }
+    .field-list { display: grid; gap: 13px; margin-top: 16px; }
+    .field-list span {
+      display: block;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.1rem;
+    }
+
+    main { padding: 70px 0 92px; }
+    section { scroll-margin-top: 92px; }
+    section + section { margin-top: 90px; }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(180px, .45fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 30px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+    .section-head p { margin: .35rem 0 0; max-width: 720px; color: var(--ink-soft); }
+
+    .research-list { display: grid; gap: 18px; }
+    .research-card {
+      display: grid;
+      grid-template-columns: minmax(150px, .34fr) minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: start;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .domain {
+      color: var(--accent-strong);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .evidence {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.45;
+    }
+    .research-card h3 {
+      margin: 0 0 9px;
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+      font-weight: 600;
+      line-height: 1.22;
+      letter-spacing: -.025em;
+    }
+    .research-card p { margin: 0; color: var(--ink-soft); }
+    .card-links { display: flex; flex-direction: column; gap: 8px; min-width: 112px; }
+    .card-links a { font-size: .88rem; font-weight: 750; text-decoration: none; }
+    .card-links a::after { content: "  ↗"; }
+
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .project-card:nth-child(2) { background: color-mix(in srgb, var(--accent-soft) 42%, var(--surface)); }
+    .project-card:nth-child(3) { background: color-mix(in srgb, var(--warm-soft) 42%, var(--surface)); }
+    .project-card h3 {
+      margin: 12px 0 10px;
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: -.025em;
+    }
+    .project-card p { margin: 0; color: var(--ink-soft); }
+    .project-card .card-links { margin-top: auto; padding-top: 22px; flex-direction: row; flex-wrap: wrap; }
+    .project-label {
+      align-self: flex-start;
+      padding: .25rem .48rem;
+      border-radius: 5px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .about-panel {
+      padding: 28px;
+      border-top: 3px solid var(--accent);
+      background: var(--surface);
+    }
+    .about-panel h3 { margin: 0 0 10px; font-family: var(--serif); font-size: 1.4rem; }
+    .about-panel p { margin: 0; color: var(--ink-soft); }
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 30px;
+      align-items: center;
+      padding: 38px;
+      border-radius: 16px;
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .contact h2 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+    }
+    .contact p { margin: 0; max-width: 700px; color: color-mix(in srgb, var(--bg) 78%, transparent); }
+    .contact .button { border-color: color-mix(in srgb, var(--bg) 38%, transparent); background: transparent; color: var(--bg); }
+
+    footer { padding: 30px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 25px; }
+    .footer-row p { margin: 0; }
+
+    @media (max-width: 880px) {
+      .hero-grid, .section-head, .about-grid { grid-template-columns: 1fr; }
+      .hero-aside { padding: 22px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+      .research-card { grid-template-columns: 1fr; gap: 16px; }
+      .card-links { flex-direction: row; flex-wrap: wrap; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { min-height: auto; }
+      .contact { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 650px) {
+      .shell { width: min(100% - 28px, 1120px); }
+      .site-header { position: static; }
+      .nav { min-height: 62px; }
+      .nav-links a { display: none; }
+      .hero { padding: 74px 0 64px; }
+      main { padding-top: 56px; }
+      section + section { margin-top: 70px; }
+      .research-card, .project-card, .about-panel, .contact { padding: 22px; }
+      .footer-row { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
-  <div class="wrap">
-    <h1>Logan Dixon</h1>
-    <p class="tagline">Independent AI researcher &amp; educator. I make hard machine-learning ideas legible — in code you can run and in the browser, with a slider you can drag.</p>
-    <div class="cta-row">
-      <a class="btn primary" href="https://lmdixon23.github.io/ai-playgrounds/">▶ AI Playgrounds (live)</a>
-      <a class="btn" href="https://github.com/lmdixon23">GitHub</a>
-      <a class="btn" href="mailto:lmdixon23@gmail.com">Email</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Logan Dixon home">
+        <span class="brand-mark" aria-hidden="true">LD</span>
+        <span>Logan Dixon</span>
+      </a>
+      <div class="nav-links">
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+          <span id="theme-icon" aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div id="top" class="hero">
+    <div class="hero-grid shell">
+      <div>
+        <p class="eyebrow">Independent research · mathematics · machine learning</p>
+        <h1>Logan Dixon <span class="hero-kicker">Structure before scale.</span></h1>
+        <p class="hero-copy">I study structural questions in nonlinear systems and machine learning. Analytic arguments carry the general results; exact or certified computation enters where a finite witness or quantitative bound bears proof weight.</p>
+        <div class="actions">
+          <a class="button primary" href="#research">Read the research</a>
+          <a class="button" href="https://lmdixon23.github.io/ai-playgrounds/">Open AI Playgrounds</a>
+          <a class="button" rel="me" href="https://orcid.org/0009-0001-0592-462X">ORCID</a>
+        </div>
+      </div>
+      <aside class="hero-aside" aria-label="Research areas">
+        <p>Current areas</p>
+        <div class="field-list">
+          <span>Nonlinear analysis and optimization</span>
+          <span>Neural-network injectivity</span>
+          <span>Algebraic and geometric computation</span>
+          <span>AI systems and explanation</span>
+        </div>
+      </aside>
     </div>
   </div>
-</header>
 
-<main class="wrap">
-  <section id="about">
-    <h2>About</h2>
-    <p class="lede">I build interactive explainers and reproducible studies of how modern AI methods actually work, and I teach introductory AI. I'm a computer-science master's student (Western Governors University) and an independent researcher, moving toward research and AI-scientist work. The through-line across everything below: take a result that's usually buried in a paper or a static figure and turn it into something you can run, drag, and break.</p>
-  </section>
+  <main id="main" class="shell">
+    <section id="research" aria-labelledby="research-title">
+      <div class="section-head">
+        <h2 id="research-title">Research</h2>
+        <p>Recent papers ask when local or finite structure determines global behavior: exactness for signed supports, injectivity mechanisms for ridge networks, and kernels of geometric representations.</p>
+      </div>
 
-  <section id="work">
-    <h2>Selected work</h2>
-    <div class="grid">
-      <div class="card">
-        <span class="tag">Live</span>
-        <h3>AI Playgrounds</h3>
-        <p>Twelve single-file interactive demos of core AI concepts — search &amp; A*, Bayesian networks, KNN, overfitting, neural nets, k-means, convolutions, Q-learning, logic/SAT, local search, Wumpus World — mapped to the Russell &amp; Norvig syllabus. No install, bilingual EN/中文, MIT.</p>
-        <div class="links">
-          <a href="https://lmdixon23.github.io/ai-playgrounds/">Open the live demo →</a>
-          <a href="https://github.com/lmdixon23/ai-playgrounds">Source →</a>
+      <div class="research-list">
+        <article class="research-card">
+          <div>
+            <span class="domain">Nonlinear optimization</span>
+            <span class="evidence">Analytic characterization · exact certificate for an explicit witness</span>
+          </div>
+          <div>
+            <h3>Nonseparability characterizes SONC exactness for interior signed supports</h3>
+            <p>Characterizes when an interior signed support is SONC-exact through nonseparability. The universal theorem is analytic; exact elimination, interval arithmetic, and certificate replay support the explicit three-negative witness and quantitative benchmark.</p>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/lmdixon23/sonc-2026-nonseparability-exactness">Repository</a>
+            <a href="https://github.com/lmdixon23/sonc-2026-nonseparability-exactness/blob/main/verification/CLAIM-TO-ARTIFACT-MAP.md">Claim map</a>
+          </div>
+        </article>
+
+        <article class="research-card">
+          <div>
+            <span class="domain">Neural networks</span>
+            <span class="evidence">Certified separation at the first open width</span>
+          </div>
+          <div>
+            <h3>Averaged-Jacobian failure at the first open width of the Neural Jacobian Conjecture</h3>
+            <p>Constructs an explicit sigmoid ridge network with an everywhere-positive Jacobian determinant and a segment-averaged Jacobian with negative determinant. The example separates pointwise positivity from the averaged-Jacobian mechanism; injectivity of the witness remains open.</p>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/lmdixon23/njc-separation">Repository</a>
+            <a href="https://github.com/lmdixon23/njc-separation/blob/main/verification/CLAIM-TO-ARTIFACT-MAP.md">Claim map</a>
+          </div>
+        </article>
+
+        <article class="research-card">
+          <div>
+            <span class="domain">Algebra and geometry</span>
+            <span class="evidence">Exact identities · exhaustive finite checks · certified flip sequences</span>
+          </div>
+          <div>
+            <h3>Ptolemy structure, sign rigidity, and pure-braid kernels in colored braid groupoid representations</h3>
+            <p>Identifies the Ptolemy identity behind complex orthogonality, proves essential rigidity of the sign rule, and determines the rational kernel on the inner pure braid groups at n = 3 and n = 4 along certified Delaunay flip sequences.</p>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/lmdixon23/cbg-2026-representation-checks">Repository</a>
+            <a href="https://github.com/lmdixon23/cbg-2026-representation-checks/blob/main/verification/CLAIM-TO-ARTIFACT-MAP.md">Claim map</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <h2 id="projects-title">AI systems and explanation</h2>
+        <p>Interactive teaching tools and compact engineering studies make the same ideas inspectable at a different scale.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <span class="project-label">Interactive</span>
+          <h3>AI Playgrounds</h3>
+          <p>Twelve bilingual, single-file applets for search, logic, Bayesian reasoning, supervised and unsupervised learning, neural networks, vision, and reinforcement learning. Each runs in the browser without a build step.</p>
+          <div class="card-links">
+            <a href="https://lmdixon23.github.io/ai-playgrounds/">Live site</a>
+            <a href="https://github.com/lmdixon23/ai-playgrounds">Source</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-label">Reinforcement learning</span>
+          <h3>RLVR and GRPO studies</h3>
+          <p>A CPU-scale reproduction of a qualitative DeepSeekMath ranking, paired with a compact operator zoo for comparing regularized policy-improvement updates under one notation and one training interface.</p>
+          <div class="card-links">
+            <a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/grpo_minimal">GRPO study</a>
+            <a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/regularized_operator_zoo">Operator zoo</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-label">Engineering</span>
+          <h3>Code portfolio</h3>
+          <p>Projects across AI evaluation, retrieval, agents, machine learning, data systems, Rust protocols, infrastructure, and security. Each project states its implemented scope and includes tests or executable checks where appropriate.</p>
+          <div class="card-links">
+            <a href="https://github.com/lmdixon23/my_dev_projects">Browse repository</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <h2 id="about-title">About</h2>
+        <p>I am an independent researcher and computer-science educator with a background spanning computer science, mathematics, physics, and secondary STEM education.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-panel">
+          <h3>Research</h3>
+          <p>I am interested in problems where a structural argument can replace brute force, or where computation can be made exact enough to carry a proof obligation. Current work crosses nonlinear optimization, neural networks, algebraic computation, and AI post-training.</p>
+        </div>
+        <div class="about-panel">
+          <h3>Teaching</h3>
+          <p>I teach computer science and AI. That work shapes the research presentation: definitions arrive before machinery, claims remain scoped to their evidence, and an implementation should reveal the idea rather than conceal it.</p>
         </div>
       </div>
-      <div class="card">
-        <span class="tag">Reproduction</span>
-        <h3>GRPO's ranking, reproduced</h3>
-        <p>A minimal, CPU-only study that recovers the <em>qualitative ranking</em> from Figure 5 of DeepSeekMath (Shao et al., 2024): RFT / Online RFT / GRPO+OS at 0.18 / 0.95 / 0.99 on a synthetic verifiable-reward task (mean of 3 seeds), in under a minute. RFT, Online RFT, and GRPO+OS share one training loop.</p>
-        <div class="links">
-          <a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/grpo_minimal">Code &amp; method →</a>
-        </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-title">
+      <div>
+        <h2 id="contact-title">Contact</h2>
+        <p>For research collaboration, technical review, or roles in mathematical AI, machine learning, and research engineering.</p>
       </div>
-      <div class="card">
-        <span class="tag">In preparation</span>
-        <h3>RLVR Operator Series</h3>
-        <p>A short technical series arguing that the recent RLVR / GRPO methods are knob-turns on a single regularized-greedy operator — not a grab bag of unrelated tricks. The drafts are in preparation and out for expert feedback; the companion code, a pedagogical "regularized operator zoo," is already public.</p>
-        <div class="links">
-          <a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/regularized_operator_zoo">Companion code →</a>
-        </div>
+      <div class="actions">
+        <a class="button" href="mailto:lmdixon23@gmail.com">Email</a>
+        <a class="button" rel="me" href="https://github.com/lmdixon23">GitHub</a>
+        <a class="button" rel="me" href="https://www.linkedin.com/in/logan-dixon-b1bb43329/">LinkedIn</a>
       </div>
-      <div class="card">
-        <span class="tag">Portfolio</span>
-        <h3>Code portfolio</h3>
-        <p>A working portfolio across AI engineering (RAG, agents, evals), machine learning, Rust protocol implementations, data engineering, and network security — each project tested, each README honest about what's implemented versus aspirational.</p>
-        <div class="links">
-          <a href="https://github.com/lmdixon23/my_dev_projects">Browse on GitHub →</a>
-        </div>
-      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-row shell">
+      <p>© 2026 Logan Dixon</p>
+      <p>Static HTML · no advertising · no behavioral tracking</p>
     </div>
-  </section>
+  </footer>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p class="lede">Open to research and AI-engineering roles, and to collaboration on making AI methods legible. Reach me at <a href="mailto:lmdixon23@gmail.com">lmdixon23@gmail.com</a> or on <a href="https://github.com/lmdixon23">GitHub</a> and <a href="https://www.linkedin.com/in/logan-dixon-b1bb43329/">LinkedIn</a>.</p>
-  </section>
-</main>
+  <script>
+    (function () {
+      var root = document.body;
+      var button = document.getElementById('theme-toggle');
+      var icon = document.getElementById('theme-icon');
+      var storageKey = 'logan-dixon-theme';
 
-<footer>
-  <div class="wrap">© 2026 Logan Dixon · A single static page — no tracking, no cookies.</div>
-</footer>
+      function setTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        button.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        button.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+        icon.textContent = theme === 'dark' ? '☀' : '◐';
+      }
 
-<script>
-  (function () {
-    var KEY = 'theme', btn = document.getElementById('themeBtn');
-    function apply(t) { document.body.classList.toggle('dark', t === 'dark'); btn.textContent = t === 'dark' ? '☀️' : '🌙'; }
-    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
-    if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    apply(saved);
-    btn.addEventListener('click', function () {
-      var t = document.body.classList.contains('dark') ? 'light' : 'dark';
-      apply(t); try { localStorage.setItem(KEY, t); } catch (e) {}
-    });
-  })();
-</script>
+      var saved = null;
+      try { saved = localStorage.getItem(storageKey); } catch (error) {}
+      if (saved !== 'light' && saved !== 'dark') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      setTheme(saved);
+
+      button.addEventListener('click', function () {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+        try { localStorage.setItem(storageKey, next); } catch (error) {}
+      });
+    }());
+  </script>
 </body>
 </html>
