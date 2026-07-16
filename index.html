@@ -383,9 +383,24 @@
     .contact p { margin: 0; max-width: 700px; color: color-mix(in srgb, var(--bg) 78%, transparent); }
     .contact .button { border-color: color-mix(in srgb, var(--bg) 38%, transparent); background: transparent; color: var(--bg); }
 
-    footer { padding: 30px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
-    .footer-row { display: flex; justify-content: space-between; gap: 25px; }
+    footer { padding: 34px 0 52px; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
+    .footer-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+      gap: 36px;
+      align-items: start;
+    }
     .footer-row p { margin: 0; }
+    .footer-row p + p { margin-top: 7px; }
+    .footer-top { margin-bottom: 14px !important; }
+    .footer-identity strong {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .footer-meta { text-align: right; }
+    .footer-links { line-height: 1.9; }
 
     @media (max-width: 880px) {
       .hero-grid, .section-head, .about-grid { grid-template-columns: 1fr; }
@@ -405,7 +420,8 @@
       main { padding-top: 56px; }
       section + section { margin-top: 70px; }
       .research-card, .project-card, .about-panel, .contact { padding: 22px; }
-      .footer-row { flex-direction: column; }
+      .footer-row { grid-template-columns: 1fr; gap: 24px; }
+      .footer-meta { text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
@@ -574,6 +590,7 @@
       </div>
       <div class="actions">
         <a class="button" href="mailto:lmdixon23@gmail.com">Email</a>
+        <a class="button" rel="me" href="https://orcid.org/0009-0001-0592-462X">ORCID</a>
         <a class="button" rel="me" href="https://github.com/lmdixon23">GitHub</a>
         <a class="button" rel="me" href="https://www.linkedin.com/in/logan-dixon-b1bb43329/">LinkedIn</a>
       </div>
@@ -582,8 +599,23 @@
 
   <footer>
     <div class="footer-row shell">
-      <p>© 2026 Logan Dixon</p>
-      <p>Static HTML · no advertising · no behavioral tracking</p>
+      <div class="footer-identity">
+        <p class="footer-top"><a href="#top">↑ Back to top</a></p>
+        <p><strong>Logan M. Dixon</strong></p>
+        <p>Independent research in mathematics, machine learning, and reproducible computation.</p>
+      </div>
+      <div class="footer-meta">
+        <p class="footer-links">
+          <a href="https://github.com/lmdixon23/lmdixon23.github.io">Source</a> ·
+          <a href="https://github.com/lmdixon23/lmdixon23.github.io/blob/main/LICENSE">MIT</a> ·
+          <a rel="me" href="https://orcid.org/0009-0001-0592-462X">ORCID</a> ·
+          <a rel="me" href="https://github.com/lmdixon23">GitHub</a> ·
+          <a rel="me" href="https://www.linkedin.com/in/logan-dixon-b1bb43329/">LinkedIn</a> ·
+          <a href="mailto:lmdixon23@gmail.com">Email</a>
+        </p>
+        <p>© 2026 Logan M. Dixon</p>
+        <p>Static HTML · no advertising or behavioral tracking</p>
+      </div>
     </div>
   </footer>
 

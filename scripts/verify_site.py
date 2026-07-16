@@ -27,6 +27,14 @@ REQUIRED_REPOSITORIES = {
     "https://github.com/lmdixon23/cbg-2026-representation-checks",
     "https://github.com/lmdixon23/ai-playgrounds",
 }
+REQUIRED_PUBLIC_LINKS = {
+    "https://github.com/lmdixon23/lmdixon23.github.io",
+    "https://github.com/lmdixon23/lmdixon23.github.io/blob/main/LICENSE",
+    "https://orcid.org/0009-0001-0592-462X",
+    "https://github.com/lmdixon23",
+    "https://www.linkedin.com/in/logan-dixon-b1bb43329/",
+    "mailto:lmdixon23@gmail.com",
+}
 PROHIBITED = (
     r"[A-Za-z]:\\",
     r"/home/[^/]+/",
@@ -148,6 +156,15 @@ def main() -> None:
     for repository in REQUIRED_REPOSITORIES:
         if repository not in text:
             fail(f"required repository link is missing: {repository}")
+
+    for public_link in REQUIRED_PUBLIC_LINKS:
+        if public_link not in parser.hrefs:
+            fail(f"required public identity link is missing: {public_link}")
+
+    if "Static HTML · no advertising or behavioral tracking" not in text:
+        fail("footer privacy statement is missing")
+    if "↑ Back to top" not in text:
+        fail("footer back-to-top link is missing")
 
     if len(parser.json_ld) != 1:
         fail(f"expected one JSON-LD block, found {len(parser.json_ld)}")
