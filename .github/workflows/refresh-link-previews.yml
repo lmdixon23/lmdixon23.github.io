@@ -1,0 +1,289 @@
+name: One-time social preview refresh
+
+on:
+  push:
+    paths:
+      - .github/workflows/refresh-link-previews.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install image dependency
+        run: python -m pip install pillow
+
+      - name: Generate previews and landing pages
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont
+          import hashlib
+          import html
+          import math
+          import re
+
+          ROOT = Path('.')
+          W, H = 1200, 630
+          sans = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+          sans_bold = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+          serif = '/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf'
+          serif_bold = '/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf'
+
+          def font(path, size):
+              return ImageFont.truetype(path, size)
+
+          def rounded(draw, box, radius, fill, outline=None, width=1):
+              draw.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=width)
+
+          def grid(draw, color, step=60, margin=0):
+              for x in range(margin, W + 1, step):
+                  draw.line((x, 0, x, H), fill=color, width=1)
+              for y in range(margin, H + 1, step):
+                  draw.line((0, y, W, y), fill=color, width=1)
+
+          def save_png(image, path):
+              image.save(path, format='PNG', optimize=True)
+
+          # Main portfolio preview, intentionally light to match the current default site.
+          img = Image.new('RGB', (W, H), '#f7f5ef')
+          d = ImageDraw.Draw(img)
+          grid(d, '#e5e0d5', 72)
+          rounded(d, (58, 50, 136, 128), 16, '#102a43')
+          d.text((97, 89), 'LD', font=font(sans_bold, 28), fill='#f7f5ef', anchor='mm')
+          d.text((58, 174), 'Logan Dixon', font=font(serif_bold, 68), fill='#102a43')
+          d.text((60, 260), 'Mathematics · AI · reproducible research', font=font(sans_bold, 31), fill='#0b5d65')
+          d.text((60, 315), 'Analytic structure, exact computation, and inspectable AI systems', font=font(sans, 23), fill='#486581')
+          cards = [
+              ('Research', 'Nonlinear systems\nand certified computation'),
+              ('AI Playgrounds', 'Twelve bilingual\ninteractive applets'),
+              ('Engineering', 'RLVR, evaluation,\nretrieval, and agents'),
+          ]
+          x = 58
+          for title, body in cards:
+              rounded(d, (x, 390, x + 330, 548), 18, '#fffdf8', '#d9e2ec', 2)
+              d.text((x + 22, 418), title, font=font(sans_bold, 24), fill='#102a43')
+              d.multiline_text((x + 22, 458), body, font=font(sans, 19), fill='#627d98', spacing=7)
+              x += 356
+          d.text((1140, 590), 'lmdixon23.github.io', font=font(sans_bold, 19), fill='#0b5d65', anchor='ra')
+          save_png(img, ROOT / 'preview.png')
+          save_png(img, ROOT / 'preview-v2.png')
+
+          preview_svg = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+            <title id="title">Logan Dixon</title>
+            <desc id="desc">Mathematics, AI, and reproducible research</desc>
+            <rect width="1200" height="630" fill="#f7f5ef"/>
+            <g opacity=".7" stroke="#e5e0d5" stroke-width="1">
+              <path d="M0 72h1200M0 144h1200M0 216h1200M0 288h1200M0 360h1200M0 432h1200M0 504h1200M0 576h1200"/>
+              <path d="M72 0v630M144 0v630M216 0v630M288 0v630M360 0v630M432 0v630M504 0v630M576 0v630M648 0v630M720 0v630M792 0v630M864 0v630M936 0v630M1008 0v630M1080 0v630M1152 0v630"/>
+            </g>
+            <rect x="58" y="50" width="78" height="78" rx="16" fill="#102a43"/>
+            <text x="97" y="99" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#f7f5ef">LD</text>
+            <text x="58" y="226" font-family="Georgia, serif" font-size="68" font-weight="700" fill="#102a43">Logan Dixon</text>
+            <text x="60" y="292" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#0b5d65">Mathematics · AI · reproducible research</text>
+            <text x="60" y="340" font-family="Arial, sans-serif" font-size="23" fill="#486581">Analytic structure, exact computation, and inspectable AI systems</text>
+            <text x="1140" y="590" text-anchor="end" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0b5d65">lmdixon23.github.io</text>
+          </svg>\n'''
+          (ROOT / 'preview.svg').write_text(preview_svg, encoding='utf-8', newline='\n')
+
+          # RLVR social preview.
+          img = Image.new('RGB', (W, H), '#f4f7fb')
+          d = ImageDraw.Draw(img)
+          grid(d, '#e1e8f0', 75)
+          d.text((58, 58), 'RLVR OPERATOR SERIES', font=font(sans_bold, 21), fill='#365f91')
+          d.text((58, 108), 'Regularized policy improvement', font=font(serif_bold, 51), fill='#172033')
+          d.text((58, 176), 'and GRPO studies', font=font(serif_bold, 51), fill='#172033')
+          d.text((60, 252), 'Verifiable rewards · operator geometry · reproducible CPU-scale experiments', font=font(sans, 22), fill='#607087')
+          stages = [('RFT', '#dbeafe'), ('Online RFT', '#e0e7ff'), ('GRPO + OS', '#dcfce7')]
+          x = 62
+          for i, (label, fill) in enumerate(stages):
+              rounded(d, (x, 340, x + 260, 440), 18, fill, '#b8c6d8', 2)
+              d.text((x + 130, 390), label, font=font(sans_bold, 26), fill='#172033', anchor='mm')
+              if i < 2:
+                  d.line((x + 275, 390, x + 330, 390), fill='#365f91', width=5)
+                  d.polygon([(x + 330, 390), (x + 312, 378), (x + 312, 402)], fill='#365f91')
+              x += 360
+          pills = ['Entropy', 'KL to anchor', 'Tsallis', 'Rényi']
+          x = 62
+          for label in pills:
+              rounded(d, (x, 486, x + 230, 545), 29, '#ffffff', '#cbd5e1', 2)
+              d.text((x + 115, 516), label, font=font(sans_bold, 18), fill='#365f91', anchor='mm')
+              x += 250
+          d.text((1140, 590), 'Logan M. Dixon', font=font(sans_bold, 19), fill='#365f91', anchor='ra')
+          save_png(img, ROOT / 'rlvr-preview-v1.png')
+
+          # Asymptotic polygon preview using the canonical witness columns.
+          columns = [
+              (-0.23989387103981982, -0.7053370167594262),
+              (0.2126956750571866, 1.218835288777745),
+              (-1.8416162379222727, -2.860362205938082),
+              (-0.0023672751772596287, 0.09559541009657352),
+          ]
+          active_sets = [(), (1,), (1, 2), (1, 2, 3), (0, 1, 2, 3), (0, 2, 3), (0, 3), (0,)]
+          poly = []
+          for active in active_sets:
+              poly.append((sum(columns[i][0] for i in active), sum(columns[i][1] for i in active)))
+          cx = sum(x for x, _ in poly) / len(poly)
+          cy = sum(y for _, y in poly) / len(poly)
+          centered = [(x - cx, y - cy) for x, y in poly]
+          max_extent = max(max(abs(x), abs(y)) for x, y in centered)
+          scale = 165 / max_extent
+          points = [(910 + x * scale, 330 - y * scale) for x, y in centered]
+
+          img = Image.new('RGB', (W, H), '#faf8f2')
+          d = ImageDraw.Draw(img)
+          grid(d, '#e7e1d6', 72)
+          d.text((58, 58), 'RESEARCH MANUSCRIPT · REPRODUCIBILITY PACKAGE', font=font(sans_bold, 19), fill='#8a4b2a')
+          d.text((58, 108), 'Asymptotic polygon', font=font(serif_bold, 55), fill='#102a43')
+          d.text((58, 178), 'global inversion', font=font(serif_bold, 55), fill='#102a43')
+          d.multiline_text((60, 266), 'Planar saturating ridge networks\nand an injective neural-Jacobian\nseparation witness', font=font(sans, 25), fill='#486581', spacing=10)
+          rounded(d, (56, 438, 610, 532), 16, '#fffdf8', '#d9e2ec', 2)
+          d.text((80, 462), 'Exact witness · winding structure', font=font(sans_bold, 20), fill='#0b5d65')
+          d.text((80, 496), 'Validated parameter certificates', font=font(sans, 20), fill='#627d98')
+          rounded(d, (695, 82, 1138, 548), 24, '#ffffff', '#d9e2ec', 2)
+          d.polygon(points, fill='#dff3f1', outline='#0b5d65')
+          closed = points + [points[0]]
+          d.line(closed, fill='#0b5d65', width=6, joint='curve')
+          for px, py in points:
+              d.ellipse((px - 6, py - 6, px + 6, py + 6), fill='#a65f2e')
+          d.text((916, 512), 'canonical nonconvex octagon', font=font(sans_bold, 17), fill='#627d98', anchor='mm')
+          d.text((1140, 590), 'Logan M. Dixon', font=font(sans_bold, 19), fill='#0b5d65', anchor='ra')
+          save_png(img, ROOT / 'asymptotic-polygon-preview-v1.png')
+
+          def page(title, description, image, eyebrow, heading, body, links):
+              link_html = ''.join(
+                  f'<a class="button{(" primary" if i == 0 else "")}" href="{html.escape(url)}">{html.escape(label)}</a>'
+                  for i, (label, url) in enumerate(links)
+              )
+              return f'''<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>{html.escape(title)}</title>
+            <meta name="description" content="{html.escape(description)}">
+            <link rel="canonical" href="https://lmdixon23.github.io/{'rlvr.html' if 'RLVR' in title else 'asymptotic-polygon.html'}">
+            <meta property="og:type" content="website">
+            <meta property="og:title" content="{html.escape(title)}">
+            <meta property="og:description" content="{html.escape(description)}">
+            <meta property="og:image" content="https://lmdixon23.github.io/{image}">
+            <meta property="og:image:width" content="1200">
+            <meta property="og:image:height" content="630">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="{html.escape(title)}">
+            <meta name="twitter:description" content="{html.escape(description)}">
+            <meta name="twitter:image" content="https://lmdixon23.github.io/{image}">
+            <style>
+              :root{{--bg:#f7f5ef;--surface:#fffdf8;--ink:#102a43;--soft:#486581;--line:#d9e2ec;--accent:#0b5d65}}
+              *{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}}
+              main{{width:min(880px,calc(100% - 36px));margin:0 auto;padding:84px 0}} .eyebrow{{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}}
+              h1{{font-family:Georgia,serif;font-size:clamp(2.7rem,7vw,5.4rem);line-height:1.02;letter-spacing:-.045em;margin:16px 0 24px}} p{{font-size:1.16rem;color:var(--soft);max-width:760px}}
+              .panel{{margin-top:36px;padding:28px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}} .actions{{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}}
+              .button{{display:inline-flex;min-height:44px;align-items:center;padding:.7rem 1rem;border:1px solid var(--line);border-radius:9px;color:var(--ink);text-decoration:none;font-weight:750;background:var(--surface)}}
+              .button.primary{{background:var(--ink);color:var(--bg);border-color:var(--ink)}} footer{{margin-top:55px;padding-top:22px;border-top:1px solid var(--line);font-size:.9rem;color:var(--soft)}}
+            </style>
+          </head>
+          <body><main><p class="eyebrow">{html.escape(eyebrow)}</p><h1>{html.escape(heading)}</h1><div class="panel"><p>{html.escape(body)}</p><div class="actions">{link_html}</div></div><footer><a href="https://lmdixon23.github.io/">Logan Dixon research and technical portfolio</a></footer></main></body>
+          </html>\n'''
+
+          (ROOT / 'rlvr.html').write_text(page(
+              'RLVR Operator Series and GRPO Studies',
+              'Reproducible studies of regularized policy-improvement operators, reinforcement learning with verifiable rewards, and a CPU-scale GRPO comparison.',
+              'rlvr-preview-v1.png',
+              'Reinforcement learning · reproducible engineering',
+              'RLVR Operator Series and GRPO Studies',
+              'The project compares regularized policy-improvement operators under a shared notation and connects them to a compact experiment comparing RFT, Online RFT, and GRPO with outcome supervision.',
+              [('Open engineering repository', 'https://github.com/lmdixon23/my_dev_projects'), ('Read the portfolio overview', 'https://lmdixon23.github.io/#projects')]
+          ), encoding='utf-8', newline='\n')
+
+          (ROOT / 'asymptotic-polygon.html').write_text(page(
+              'Asymptotic Polygon Global Inversion',
+              'A research manuscript and reproducibility package on planar saturating ridge networks, global inversion, and an injective neural-Jacobian separation witness.',
+              'asymptotic-polygon-preview-v1.png',
+              'Mathematical AI · certified computation',
+              'Asymptotic Polygon Global Inversion',
+              'The manuscript develops a global inversion theorem for planar saturating ridge networks and resolves the canonical separation witness as an injective global diffeomorphism onto an explicit nonconvex octagon.',
+              [('Open research repository', 'https://github.com/lmdixon23/njc-2026-cluster-inversion'), ('View the full research portfolio', 'https://lmdixon23.github.io/#research')]
+          ), encoding='utf-8', newline='\n')
+
+          index = (ROOT / 'index.html').read_text(encoding='utf-8')
+          index = index.replace('https://lmdixon23.github.io/preview.png', 'https://lmdixon23.github.io/preview-v2.png')
+          index = index.replace(
+              '<a href="https://github.com/lmdixon23/njc-2026-cluster-inversion">Repository</a>\n             <a href="https://github.com/lmdixon23/njc-2026-cluster-inversion/blob/main/verification/CLAIM-TO-ARTIFACT-MAP.md">Claim map</a>',
+              '<a href="asymptotic-polygon.html">Overview</a>\n             <a href="https://github.com/lmdixon23/njc-2026-cluster-inversion">Repository</a>\n             <a href="https://github.com/lmdixon23/njc-2026-cluster-inversion/blob/main/verification/CLAIM-TO-ARTIFACT-MAP.md">Claim map</a>'
+          )
+          index = index.replace(
+              '<a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/grpo_minimal">GRPO study</a>\n             <a href="https://github.com/lmdixon23/my_dev_projects/tree/main/ai_engineering/rlvr/regularized_operator_zoo">Operator zoo</a>',
+              '<a href="rlvr.html">Project overview</a>\n             <a href="https://github.com/lmdixon23/my_dev_projects">Engineering repository</a>'
+          )
+          (ROOT / 'index.html').write_text(index, encoding='utf-8', newline='\n')
+
+          verify = (ROOT / 'scripts/verify_site.py').read_text(encoding='utf-8')
+          verify = verify.replace(
+              '    "preview.png",\n    "preview.svg",',
+              '    "preview.png",\n    "preview-v2.png",\n    "preview.svg",\n    "rlvr.html",\n    "rlvr-preview-v1.png",\n    "asymptotic-polygon.html",\n    "asymptotic-polygon-preview-v1.png",'
+          )
+          (ROOT / 'scripts/verify_site.py').write_text(verify, encoding='utf-8', newline='\n')
+
+          workflow = (ROOT / '.github/workflows/deploy-pages.yml').read_text(encoding='utf-8')
+          workflow = workflow.replace(
+              'cp .nojekyll 404.html favicon.svg index.html preview.png preview.svg robots.txt sitemap.xml _site/',
+              'cp .nojekyll 404.html favicon.svg index.html preview.png preview-v2.png preview.svg rlvr.html rlvr-preview-v1.png asymptotic-polygon.html asymptotic-polygon-preview-v1.png robots.txt sitemap.xml _site/'
+          )
+          (ROOT / '.github/workflows/deploy-pages.yml').write_text(workflow, encoding='utf-8', newline='\n')
+
+          sitemap = '''<?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            <url><loc>https://lmdixon23.github.io/</loc><lastmod>2026-07-24</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+            <url><loc>https://lmdixon23.github.io/rlvr.html</loc><lastmod>2026-07-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+            <url><loc>https://lmdixon23.github.io/asymptotic-polygon.html</loc><lastmod>2026-07-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+          </urlset>\n'''
+          (ROOT / 'sitemap.xml').write_text(sitemap, encoding='utf-8', newline='\n')
+
+          # Rebuild the integrity manifest for existing entries and the new public files.
+          manifest = ROOT / 'SHA256SUMS.txt'
+          old_lines = manifest.read_text(encoding='utf-8').splitlines()
+          comments = [line for line in old_lines if line.startswith('#')]
+          paths = []
+          for line in old_lines:
+              if line and not line.startswith('#') and '  ' in line:
+                  paths.append(line.split('  ', 1)[1])
+          paths.extend([
+              'preview-v2.png', 'rlvr.html', 'rlvr-preview-v1.png',
+              'asymptotic-polygon.html', 'asymptotic-polygon-preview-v1.png'
+          ])
+          paths = sorted(set(paths))
+          output = comments + []
+          for relative in paths:
+              path = ROOT / relative
+              if not path.is_file():
+                  raise SystemExit(f'manifest target missing: {relative}')
+              data = path.read_bytes()
+              if path.suffix.lower() != '.png':
+                  data = data.replace(b'\r\n', b'\n').replace(b'\r', b'\n')
+              output.append(f'{hashlib.sha256(data).hexdigest()}  {relative}')
+          manifest.write_text('\n'.join(output) + '\n', encoding='utf-8', newline='\n')
+          PY
+
+          rm .github/workflows/refresh-link-previews.yml
+          bash run_all.sh
+
+      - name: Commit refreshed previews
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Refresh social previews and add project landing pages"
+          git push
