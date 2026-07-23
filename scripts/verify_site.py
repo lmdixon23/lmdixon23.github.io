@@ -32,7 +32,7 @@ REQUIRED_PUBLIC_LINKS = {
     "https://github.com/lmdixon23/lmdixon23.github.io/blob/main/LICENSE",
     "https://orcid.org/0009-0001-0592-462X",
     "https://github.com/lmdixon23",
-    "https://www.linkedin.com/in/logan-dixon-b1bb43329/",
+    "https://www.linkedin.com/in/loganmdixon/",
     "mailto:lmdixon23@gmail.com",
 }
 PROHIBITED = (
