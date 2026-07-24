@@ -17,7 +17,6 @@ DEPLOY_FILES = {
     "favicon.svg",
     "index.html",
     "preview.png",
-    "preview.svg",
     "robots.txt",
     "sitemap.xml",
 }

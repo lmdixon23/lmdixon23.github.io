@@ -39,7 +39,7 @@ jobs:
       - name: Build deployment directory
         run: |
           mkdir _site
-          cp .nojekyll 404.html favicon.svg index.html preview.png preview.svg robots.txt sitemap.xml _site/
+          cp .nojekyll 404.html favicon.svg index.html preview.png robots.txt sitemap.xml _site/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

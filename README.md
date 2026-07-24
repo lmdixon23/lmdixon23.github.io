@@ -32,7 +32,7 @@ Then open <http://localhost:8000/>.
 
 - `index.html`: canonical site
 - `404.html`: custom not-found page
-- `preview.svg` and `preview.png`: social preview artwork
+- `preview.png`: current social preview artwork
 - `scripts/`: deterministic repository checks
 - `.github/workflows/deploy-pages.yml`: verify, package, and deploy workflow
 - `SHA256SUMS.txt`: integrity boundary for canonical public files
