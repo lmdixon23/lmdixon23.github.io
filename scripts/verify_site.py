@@ -11,12 +11,20 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
+PUBLIC_HTML = (
+    "index.html",
+    "404.html",
+    "privacy.html",
+    "projects/ai-playgrounds.html",
+)
 DEPLOY_FILES = {
     ".nojekyll",
     "404.html",
     "favicon.svg",
     "index.html",
     "preview.png",
+    "privacy.html",
+    "projects/ai-playgrounds.html",
     "robots.txt",
     "sitemap.xml",
 }
@@ -105,6 +113,12 @@ def main() -> None:
         if not (ROOT / relative).is_file():
             fail(f"missing deploy file: {relative}")
 
+    for relative in PUBLIC_HTML:
+        public_path = ROOT / relative
+        public_text = public_path.read_text(encoding="utf-8")
+        if not public_text.lower().startswith("<!doctype html>"):
+            fail(f"{relative} has no HTML5 doctype or contains an unexpected BOM")
+
     text = INDEX.read_text(encoding="utf-8")
     if not text.lstrip().lower().startswith("<!doctype html>"):
         fail("index.html has no HTML5 doctype")
@@ -160,8 +174,10 @@ def main() -> None:
         if public_link not in parser.hrefs:
             fail(f"required public identity link is missing: {public_link}")
 
-    if "Static HTML · no advertising or behavioral tracking" not in text:
+    if "privacy-minimized aggregate analytics" not in text:
         fail("footer privacy statement is missing")
+    if "privacy.html" not in parser.hrefs:
+        fail("portfolio privacy link is missing")
     if "↑ Back to top" not in text:
         fail("footer back-to-top link is missing")
 
@@ -185,6 +201,8 @@ def main() -> None:
         "actions/deploy-pages@v4",
         "python scripts/verify_site.py",
         "python scripts/verify_sha256_manifest.py",
+        "privacy.html",
+        "projects/ai-playgrounds.html",
     )
     for token in required_workflow_tokens:
         if token not in workflow:
