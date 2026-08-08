@@ -2,7 +2,7 @@
 
 Public research site for Logan Dixon, live at <https://lmdixon23.github.io/>.
 
-The site presents current mathematical research, reproducible repositories, AI systems work, and interactive teaching tools. It is a static site with no application framework, advertising, or behavioral tracking.
+The site presents current mathematical research, reproducible repositories, AI systems work, and interactive teaching tools. It is a static site with no application framework or advertising. It uses privacy-minimized aggregate analytics that honor DNT/GPC and a local opt-out; experiment values, student responses, names, email addresses, and arbitrary query strings are not sent.
 
 ## Verify locally
 
@@ -32,6 +32,8 @@ Then open <http://localhost:8000/>.
 
 - `index.html`: canonical site
 - `404.html`: custom not-found page
+- `privacy.html`: aggregate-analytics privacy boundary and opt-out
+- `projects/ai-playgrounds.html`: AI Playgrounds portfolio case study
 - `preview.png`: current social preview artwork
 - `scripts/`: deterministic repository checks
 - `.github/workflows/deploy-pages.yml`: verify, package, and deploy workflow
