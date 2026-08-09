@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Logan Dixon â€” Mathematics, AI, and Reproducible Research</title>
+  <title>Logan Dixon — Mathematics, AI, and Reproducible Research</title>
   <meta name="description" content="Independent research in nonlinear analysis, mathematical optimization, neural networks, and interactive AI education, with reproducible code and certified computation.">
   <link rel="canonical" href="https://lmdixon23.github.io/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -11,14 +11,14 @@
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lmdixon23.github.io/">
-  <meta property="og:title" content="Logan Dixon â€” Mathematics, AI, and Reproducible Research">
+  <meta property="og:title" content="Logan Dixon — Mathematics, AI, and Reproducible Research">
   <meta property="og:description" content="Research in nonlinear analysis, mathematical optimization, neural networks, and interactive AI education.">
   <meta property="og:image" content="https://lmdixon23.github.io/preview.png?v=20260724">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Logan Dixon â€” mathematics, AI, and reproducible research">
+  <meta property="og:image:alt" content="Logan Dixon — mathematics, AI, and reproducible research">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Logan Dixon â€” Mathematics, AI, and Reproducible Research">
+  <meta name="twitter:title" content="Logan Dixon — Mathematics, AI, and Reproducible Research">
   <meta name="twitter:description" content="Research in nonlinear analysis, mathematical optimization, neural networks, and interactive AI education.">
   <meta name="twitter:image" content="https://lmdixon23.github.io/preview.png?v=20260724">
 
@@ -316,7 +316,7 @@
     .research-card p { margin: 0; color: var(--ink-soft); }
     .card-links { display: flex; flex-direction: column; gap: 8px; min-width: 112px; }
     .card-links a { font-size: .88rem; font-weight: 750; text-decoration: none; }
-    .card-links a::after { content: "  â†—"; }
+    .card-links a::after { content: "  ↗"; }
 
     .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .project-card {
@@ -443,7 +443,7 @@
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
-          <span id="theme-icon" aria-hidden="true">â—</span>
+          <span id="theme-icon" aria-hidden="true">◐</span>
         </button>
       </div>
     </nav>
@@ -452,7 +452,7 @@
   <div id="top" class="hero">
     <div class="hero-grid shell">
       <div>
-        <p class="eyebrow">Independent research Â· mathematics Â· machine learning</p>
+        <p class="eyebrow">Independent research · mathematics · machine learning</p>
         <h1>Logan Dixon <span class="hero-kicker">Structure before scale.</span></h1>
         <p class="hero-copy">I study structural questions in nonlinear systems and machine learning. Analytic arguments carry the general results; exact or certified computation enters where a finite witness or quantitative bound bears proof weight.</p>
         <div class="actions">
@@ -467,7 +467,7 @@
           <span>Nonlinear analysis and optimization</span>
           <span>Neural-network injectivity</span>
           <span>Algebraic and geometric computation</span>
-          <span>AI systems and explanation</span>
+          <span>AI systems, evaluation, and explanation</span>
         </div>
       </aside>
     </div>
@@ -477,14 +477,14 @@
     <section id="research" aria-labelledby="research-title">
       <div class="section-head">
         <h2 id="research-title">Research</h2>
-        <p>Recent papers ask when local or finite structure determines global behavior: exactness for signed supports, injectivity mechanisms for ridge networks, and kernels of geometric representations.</p>
+        <p>Recent papers ask when local or finite structure determines global behavior: exactness for signed supports, global inversion and counterexamples for ridge networks, and kernels of geometric representations.</p>
       </div>
 
       <div class="research-list">
         <article class="research-card">
           <div>
             <span class="domain">Nonlinear optimization</span>
-            <span class="evidence">Analytic characterization Â· exact certificate for an explicit witness</span>
+            <span class="evidence">Analytic characterization · exact certificate for an explicit witness</span>
           </div>
           <div>
             <h3>Nonseparability characterizes SONC exactness for interior signed supports</h3>
@@ -496,25 +496,12 @@
           </div>
         </article>
 
-        <article class="research-card">
-          <div>
-            <span class="domain">Neural networks</span>
-            <span class="evidence">Certified separation at the first open width</span>
-          </div>
-          <div>
-            <h3>Averaged-Jacobian failure at the first open width of the Neural Jacobian Conjecture</h3>
-            <p>Constructs an explicit sigmoid ridge network with an everywhere-positive Jacobian determinant and a segment-averaged Jacobian with negative determinant. The example separates pointwise positivity from the averaged-Jacobian mechanism at planar width four; the global behavior of its canonical witness is resolved in the follow-up below.</p>
-          </div>
-          <div class="card-links">
-            <a href="https://github.com/lmdixon23/njc-separation">Repository</a>
-            <a href="https://github.com/lmdixon23/njc-separation/blob/main/verification/CLAIM-TO-ARTIFACT-MAP.md">Claim map</a>
-          </div>
-        </article>
+
 
         <article class="research-card">
           <div>
             <span class="domain">Neural networks</span>
-            <span class="evidence">Asymptotic polygon Â· winding multiplicity Â· validated open family</span>
+            <span class="evidence">Asymptotic polygon · winding multiplicity · validated open family</span>
           </div>
           <div>
             <h3>Asymptotic-polygon global inversion for planar saturating ridge networks and an injective neural-Jacobian separation witness</h3>
@@ -528,8 +515,23 @@
 
         <article class="research-card">
           <div>
+            <span class="domain">Neural networks</span>
+            <span class="evidence">Exact counterexample · winding two · certified distinct preimages</span>
+          </div>
+          <div>
+            <h3>A positive-Jacobian noninjective sigmoid ridge map and the sharp hidden-width threshold</h3>
+            <p>Gives an exact rational counterexample at planar width four: the Jacobian determinant is positive everywhere, an exact rational target has winding number two, and two distinct preimages are certified independently. Together with the positive results at the two lower widths, the construction yields the sharp hidden-width threshold.</p>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/lmdixon23/njc-2026-planar-n4-winding">Repository</a>
+            <a href="https://github.com/lmdixon23/njc-2026-planar-n4-winding/blob/main/verification/CLAIM-TO-ARTIFACT-MAP.md">Claim map</a>
+          </div>
+        </article>
+
+        <article class="research-card">
+          <div>
             <span class="domain">Algebra and geometry</span>
-            <span class="evidence">Exact identities Â· exhaustive finite checks Â· certified flip sequences</span>
+            <span class="evidence">Exact identities · exhaustive finite checks · certified flip sequences</span>
           </div>
           <div>
             <h3>Ptolemy structure, sign rigidity, and pure-braid kernels in colored braid groupoid representations</h3>
@@ -545,16 +547,16 @@
 
     <section id="projects" aria-labelledby="projects-title">
       <div class="section-head">
-        <h2 id="projects-title">AI systems and explanation</h2>
+        <h2 id="projects-title">AI systems, evaluation, and explanation</h2>
         <p>Interactive teaching tools and compact engineering studies make the same ideas inspectable at a different scale.</p>
       </div>
 
       <div class="project-grid">
         <article class="project-card">
-  <span class="project-label">Interactive Â· research companion</span>
+  <span class="project-label">Interactive · research companion</span>
   <h3>AI Playgrounds</h3>
   <p>Twelve bilingual, offline-ready AI applets for search, logic, probability, machine learning, vision, and reinforcement learning. The release couples classroom-facing explanations with deterministic algorithm checks, responsive browser QA, and explicit evidence boundaries.</p>
-  <p class="evidence">12 applets Â· English/ä¸­æ–‡ Â· 45 algorithm checks Â· offline-ready</p>
+  <p class="evidence">12 applets · English/中文 · 45 algorithm checks · offline-ready</p>
   <div class="card-links">
     <a href="https://lmdixon23.github.io/ai-playgrounds/?ap_src=portfolio">Live site</a>
     <a href="projects/ai-playgrounds.html">Case study</a>
@@ -562,6 +564,18 @@
     <a href="https://doi.org/10.5281/zenodo.21854217">DOI</a>
   </div>
 </article>
+
+        <article class="project-card">
+          <span class="project-label">Evaluation engineering</span>
+          <h3>EvalCanary</h3>
+          <p>Evaluator migrations can change individual benchmark verdicts even when aggregate scores look stable. EvalCanary holds the output corpus fixed, replays before-and-after verifiers, classifies verdict transitions, estimates paired uncertainty, checks subgroup effects, preserves source and execution provenance, and enforces explicit CI policy gates.</p>
+          <p class="evidence">GitHub Action · evaluator migration diffs · paired uncertainty · provenance · policy gates</p>
+          <div class="card-links">
+            <a href="https://github.com/lmdixon23/evalcanary">Source</a>
+            <a href="https://github.com/lmdixon23/evalcanary/blob/main/docs/ASSURANCE.md">Assurance</a>
+            <a href="https://github.com/lmdixon23/my_dev_projects">More engineering</a>
+          </div>
+        </article>
 
         <article class="project-card">
           <span class="project-label">Reinforcement learning</span>
@@ -573,14 +587,7 @@
           </div>
         </article>
 
-        <article class="project-card">
-          <span class="project-label">Engineering</span>
-          <h3>Code portfolio</h3>
-          <p>Projects across AI evaluation, retrieval, agents, machine learning, data systems, Rust protocols, infrastructure, and security. Each project states its implemented scope and includes tests or executable checks where appropriate.</p>
-          <div class="card-links">
-            <a href="https://github.com/lmdixon23/my_dev_projects">Browse repository</a>
-          </div>
-        </article>
+
       </div>
     </section>
 
@@ -592,7 +599,7 @@
       <div class="about-grid">
         <div class="about-panel">
           <h3>Research</h3>
-          <p>I am interested in problems where a structural argument can replace brute force, or where computation can be made exact enough to carry a proof obligation. Current work crosses nonlinear optimization, neural networks, algebraic computation, and AI post-training.</p>
+          <p>I am interested in problems where a structural argument can replace brute force, or where computation can be made exact enough to carry a proof obligation. Current work crosses nonlinear optimization, neural networks, algebraic computation, ML evaluation, and AI post-training.</p>
         </div>
         <div class="about-panel">
           <h3>Teaching</h3>
@@ -624,14 +631,14 @@
       </div>
       <div class="footer-meta">
         <p class="footer-links">
-          <a href="https://github.com/lmdixon23/lmdixon23.github.io">Source</a> Â·
-          <a href="https://github.com/lmdixon23/lmdixon23.github.io/blob/main/LICENSE">MIT</a> Â·
-          <a rel="me" href="https://orcid.org/0009-0001-0592-462X">ORCID</a> Â·
-          <a rel="me" href="https://github.com/lmdixon23">GitHub</a> Â·
-          <a rel="me" href="https://www.linkedin.com/in/loganmdixon/">LinkedIn</a> Â·
+          <a href="https://github.com/lmdixon23/lmdixon23.github.io">Source</a> ·
+          <a href="https://github.com/lmdixon23/lmdixon23.github.io/blob/main/LICENSE">MIT</a> ·
+          <a rel="me" href="https://orcid.org/0009-0001-0592-462X">ORCID</a> ·
+          <a rel="me" href="https://github.com/lmdixon23">GitHub</a> ·
+          <a rel="me" href="https://www.linkedin.com/in/loganmdixon/">LinkedIn</a> ·
           <a href="mailto:lmdixon23@gmail.com">Email</a>
         </p>
-        <p>Â© 2026 Logan M. Dixon</p>
+        <p>© 2026 Logan M. Dixon</p>
         <p>Static HTML · no advertising · <a href="privacy.html">privacy-minimized aggregate analytics</a></p>
       </div>
     </div>
@@ -648,7 +655,7 @@
         root.setAttribute('data-theme', theme);
         button.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
         button.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
-        icon.textContent = theme === 'dark' ? 'â˜€' : 'â—';
+        icon.textContent = theme === 'dark' ? '☀' : '◐';
       }
 
       var saved = null;

@@ -30,10 +30,25 @@ DEPLOY_FILES = {
 }
 REQUIRED_REPOSITORIES = {
     "https://github.com/lmdixon23/sonc-2026-nonseparability-exactness",
-    "https://github.com/lmdixon23/njc-separation",
+    "https://github.com/lmdixon23/njc-2026-cluster-inversion",
+    "https://github.com/lmdixon23/njc-2026-planar-n4-winding",
     "https://github.com/lmdixon23/cbg-2026-representation-checks",
     "https://github.com/lmdixon23/ai-playgrounds",
+    "https://github.com/lmdixon23/evalcanary",
 }
+PROHIBITED_CURRENT_REPOSITORIES = {
+    "https://github.com/lmdixon23/njc-separation",
+}
+MOJIBAKE_SENTINELS = (
+    "\u00c2",
+    "\u00c3",
+    "\u00e2\u20ac",
+    "\u00e2\u2020",
+    "\u00e2\u2014",
+    "\u00e2\u02dc",
+    "\u00e4\u00b8",
+    "\u00e6\u2013",
+)
 REQUIRED_PUBLIC_LINKS = {
     "https://github.com/lmdixon23/lmdixon23.github.io",
     "https://github.com/lmdixon23/lmdixon23.github.io/blob/main/LICENSE",
@@ -119,6 +134,12 @@ def main() -> None:
         if not public_text.lower().startswith("<!doctype html>"):
             fail(f"{relative} has no HTML5 doctype or contains an unexpected BOM")
 
+        for sentinel in MOJIBAKE_SENTINELS:
+            if sentinel in public_text:
+                fail(
+                    f"{relative} contains likely UTF-8 mojibake: "
+                    f"{ascii(sentinel)}"
+                )
     text = INDEX.read_text(encoding="utf-8")
     if not text.lstrip().lower().startswith("<!doctype html>"):
         fail("index.html has no HTML5 doctype")
@@ -170,6 +191,13 @@ def main() -> None:
         if repository not in text:
             fail(f"required repository link is missing: {repository}")
 
+
+    for repository in PROHIBITED_CURRENT_REPOSITORIES:
+        if repository in text:
+            fail(
+                f"historical repository appears on current-research surface: "
+                f"{repository}"
+            )
     for public_link in REQUIRED_PUBLIC_LINKS:
         if public_link not in parser.hrefs:
             fail(f"required public identity link is missing: {public_link}")
