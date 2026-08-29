@@ -1,5 +1,384 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="referrer" content="strict-origin-when-cross-origin"><title>AI Playgrounds — Project case study</title><meta name="description" content="Design, engineering, verification, and research boundaries for AI Playgrounds."><style>body{margin:0;background:#f7f5ef;color:#102a43;font:17px/1.65 system-ui,sans-serif}main{width:min(900px,calc(100% - 36px));margin:0 auto;padding:64px 0}h1,h2{font-family:Georgia,serif;line-height:1.1}h1{font-size:clamp(2.7rem,8vw,5.2rem);margin:.2em 0}.eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#0b5d65}.proof{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;list-style:none}.proof li{background:#dff3f1;padding:.4rem .7rem;border-radius:999px;font-weight:700}.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.card{background:#fff;padding:1.2rem;border:1px solid #d9e2ec;border-radius:12px}a{color:#0b5d65;font-weight:700}@media(max-width:700px){.grid{grid-template-columns:1fr}}</style></head><body><main><p class="eyebrow">Educational software · research companion</p><h1>AI Playgrounds</h1><p>AI Playgrounds is a suite of twelve bilingual, offline-ready interactive models for foundational artificial intelligence. It was designed to make algorithmic state inspectable in ordinary school browsers without accounts, servers, or package installation.</p><ul class="proof"><li>12 standalone applets</li><li>English + 简体中文</li><li>45 algorithm checks</li><li>63 browser cases</li><li>MIT license</li><li>Zenodo DOI</li></ul><p><a href="https://lmdixon23.github.io/ai-playgrounds/?ap_src=portfolio">Open the live suite</a> · <a href="https://github.com/lmdixon23/ai-playgrounds">Inspect the repository</a> · <a href="https://doi.org/10.5281/zenodo.21854217">Archived v1.0.1 · DOI 10.5281/zenodo.21854217</a></p><div class="grid"><section class="card"><h2>Design problem</h2><p>Many AI demos hide the mechanism, require a hosted service, or lack enough instructional structure for classroom use. The suite combines manipulation, traceable explanations, scenarios, fidelity notes, and teacher resources.</p></section><section class="card"><h2>Engineering decision</h2><p>Each applet remains one portable HTML file. A deterministic build process constructs the public site, while applet use requires no build step or runtime dependency.</p></section><section class="card"><h2>Assurance</h2><p>The v1.0.0 baseline carries the original 45-check and 63-case evidence. The maintenance/archival v1.0.1 release preserves the applet algorithms, adds durable evidence and privacy-minimized uptake measurement, and is archived at DOI 10.5281/zenodo.21854217.</p></section><section class="card"><h2>Claim boundary</h2><p>Software checks do not establish learning gains, accessibility conformance, adoption, or comparative effectiveness. Those questions are reserved for separate empirical work.</p></section></div><h2>Role demonstrated</h2><p>Product design, front-end implementation, algorithm verification, bilingual instructional design, reproducible release engineering, research provenance, and responsible analytics.</p><p><a href="../">Return to portfolio</a></p></main>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>AI Playgrounds v1.8.1 — Project case study</title>
+  <meta name="description" content="Current product, pedagogy, verification, and evidence boundaries for the 15-lab AI Playgrounds v1.8.1 release, with the archived v1.0.1 DOI preserved as historical provenance.">
+  <link rel="canonical" href="https://lmdixon23.github.io/projects/ai-playgrounds.html">
+  <meta name="theme-color" content="#102a43">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f5ef;
+      --surface: #fffdf8;
+      --ink: #102a43;
+      --ink-soft: #334e68;
+      --line: #d9e2ec;
+      --accent: #0b5d65;
+      --accent-soft: #dff3f1;
+      --warm: #8a4b24;
+      --warm-soft: #f5e8dc;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font: 17px/1.65 var(--sans);
+      text-rendering: optimizeLegibility;
+    }
+    a { color: var(--accent); font-weight: 700; text-underline-offset: .18em; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid #147d86; outline-offset: 3px; }
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+      transform: translateY(-150%);
+      padding: .65rem .9rem;
+      border-radius: .5rem;
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(980px, calc(100% - 36px)); margin-inline: auto; }
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 245, 239, .94);
+    }
+    .site-header .shell {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand { color: var(--ink); text-decoration: none; }
+    .header-links { display: flex; flex-wrap: wrap; gap: 16px; }
+    .header-links a { font-size: .9rem; text-decoration: none; }
+    .hero { padding: 76px 0 56px; border-bottom: 1px solid var(--line); }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--accent);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { text-wrap: balance; }
+    h1, h2 {
+      font-family: var(--serif);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -.035em;
+    }
+    h1 { max-width: 820px; margin: 0; font-size: clamp(3rem, 8vw, 5.7rem); }
+    h2 { margin: 0 0 18px; font-size: clamp(2rem, 4vw, 3rem); }
+    h3 { margin: 0 0 8px; font-family: var(--serif); font-size: 1.28rem; line-height: 1.2; }
+    p { color: var(--ink-soft); }
+    .lede { max-width: 820px; margin: 24px 0 0; font-size: clamp(1.08rem, 2vw, 1.28rem); }
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .proof li {
+      padding: .43rem .72rem;
+      border: 1px solid #b7ddd9;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--ink);
+      font-size: .88rem;
+      font-weight: 750;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: .7rem .9rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .button.primary { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+    main { padding: 62px 0 82px; }
+    section + section { margin-top: 70px; }
+    .section-intro { max-width: 790px; margin: -6px 0 24px; }
+    .version-grid, .card-grid, .boundary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+    .card p:last-child, .boundary p:last-child { margin-bottom: 0; }
+    .version-card { position: relative; overflow: hidden; }
+    .version-card.current { border-top: 4px solid var(--accent); }
+    .version-card.archive { border-top: 4px solid var(--warm); background: #fffaf5; }
+    .status {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .archive .status { color: var(--warm); }
+    .spine {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+    .spine li {
+      padding: .45rem .65rem;
+      border-radius: 6px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: .85rem;
+      font-weight: 750;
+    }
+    .spine li:not(:last-child)::after { content: " →"; padding-left: .45rem; color: #b7ddd9; }
+    .assurance-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: assurance;
+    }
+    .assurance-list li {
+      counter-increment: assurance;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 18px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--surface);
+    }
+    .assurance-list li::before {
+      content: counter(assurance, decimal-leading-zero);
+      color: var(--accent);
+      font-weight: 850;
+    }
+    .assurance-list strong { display: block; color: var(--ink); }
+    .boundary { padding: 24px; border-radius: 12px; }
+    .boundary.supported { border: 1px solid #b7ddd9; background: var(--accent-soft); }
+    .boundary.not-supported { border: 1px solid #e2c8b5; background: var(--warm-soft); }
+    .note {
+      margin-top: 18px;
+      padding: 15px 18px;
+      border-left: 4px solid var(--warm);
+      background: #fffaf5;
+      color: var(--ink-soft);
+    }
+    footer { padding-top: 38px; border-top: 1px solid var(--line); }
+    footer p { margin: 0; }
+    @media (max-width: 720px) {
+      .site-header .shell { align-items: flex-start; flex-direction: column; padding-block: 14px; }
+      .hero { padding-top: 54px; }
+      .version-grid, .card-grid, .boundary-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="shell">
+      <a class="brand" href="../">Logan Dixon · Portfolio</a>
+      <nav class="header-links" aria-label="Case study links">
+        <a href="https://lmdixon23.github.io/ai-playgrounds/?ap_src=portfolio">Live suite</a>
+        <a href="https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.8.1">Current release</a>
+        <a href="https://github.com/lmdixon23/ai-playgrounds">Source</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="shell">
+      <p class="eyebrow">Educational software · research companion · current release v1.8.1</p>
+      <h1>AI Playgrounds</h1>
+      <p class="lede">AI Playgrounds is a suite of 15 multilingual, offline-ready learner labs that make AI mechanisms inspectable in ordinary browsers. The current release spans 13 Foundations/course-track mechanisms and two Modern AI extensions, with short assignable inquiry work and a deterministic verification boundary built into the product.</p>
+      <ul class="proof" aria-label="Current release facts">
+        <li>15 learner labs</li>
+        <li>15 Level-1 Quick Assigns</li>
+        <li>EN · ZH · VI · ES learner support</li>
+        <li>58-file deterministic artifact</li>
+        <li>MIT license</li>
+        <li>Historical v1.0.1 DOI retained</li>
+      </ul>
+      <div class="actions">
+        <a class="button primary" href="https://lmdixon23.github.io/ai-playgrounds/?ap_src=portfolio">Open the live suite</a>
+        <a class="button" href="https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.8.1">Read the v1.8.1 release</a>
+        <a class="button" href="https://doi.org/10.5281/zenodo.21854217">Historical v1.0.1 DOI</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main" class="shell">
+    <section aria-labelledby="version-boundary-title">
+      <p class="eyebrow">Version boundary</p>
+      <h2 id="version-boundary-title">Current software and archived evidence are distinct</h2>
+      <p class="section-intro">The live product has continued to develop beyond the DOI-backed archive. The portfolio therefore identifies both artifacts without transferring claims or identifiers between them.</p>
+      <div class="version-grid">
+        <article class="card version-card current">
+          <span class="status">Current product boundary</span>
+          <h3>v1.8.1 · released August 27, 2026</h3>
+          <p>The current release contains 15 labs, all 15 Level-1 Quick Assigns, and tested English, Simplified Chinese, Vietnamese, and Spanish support across those learner surfaces.</p>
+          <p>Its release evidence is attached to the exact GitHub tag and verified source revision. v1.8.1 has not been assigned the archived v1.0.1 version DOI.</p>
+          <p><a href="https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.8.1">Inspect the current release boundary</a></p>
+        </article>
+        <article class="card version-card archive">
+          <span class="status">Immutable historical snapshot</span>
+          <h3>v1.0.1 · DOI 10.5281/zenodo.21854217</h3>
+          <p>The archived release preserves the earlier 12-applet bilingual boundary and the original 45-algorithm-check and 63-browser-case evidence lineage.</p>
+          <p>Those product and test counts describe the historical archive. They are not presented as totals for the larger v1.8.1 assurance stack.</p>
+          <p><a href="https://doi.org/10.5281/zenodo.21854217">Open the archived v1.0.1 record</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="product-title">
+      <p class="eyebrow">Current product</p>
+      <h2 id="product-title">Mechanism-first labs across the AI curriculum</h2>
+      <p class="section-intro">The catalogue covers search and optimization, logical agents and SAT, probabilistic reasoning, supervised and unsupervised learning, neural networks, computer vision, reinforcement learning, adversarial search, Transformer language modeling, and agent tool-use/runtime protocols.</p>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Inspectable mechanisms</h3>
+          <p>Each lab centers one bounded mechanism and connects learner controls to visual state, text-equivalent explanation, scenarios, teacher guidance, and fidelity disclosures where appropriate.</p>
+        </article>
+        <article class="card">
+          <h3>Portable architecture</h3>
+          <p>The original twelve applets remain standalone HTML. Labs 13–15 are generated deterministically into the public artifact and remain self-contained offline HTML after generation. Learner use requires no account, backend, package manager, or hosted model.</p>
+        </article>
+        <article class="card">
+          <h3>Four-locale learner boundary</h3>
+          <p>All 15 labs and all 15 Quick Assigns support English, Simplified Chinese, Vietnamese, and Spanish under the tested release paths, including learner-state and response preservation during locale changes.</p>
+        </article>
+        <article class="card">
+          <h3>Deliberately narrower support surfaces</h3>
+          <p>Some educator and support pages remain English/Chinese or English-only. The two current Level-2 Activity Pack canaries are English-only. Four-locale learner support is not a claim that the entire website or every teaching resource is available in four languages.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="pedagogy-title">
+      <p class="eyebrow">Pedagogy layer</p>
+      <h2 id="pedagogy-title">From open exploration to short assignable inquiry</h2>
+      <p class="section-intro">Every lab now has one stable Level-1 Quick Assign, designed for approximately 10–15 minutes and routed through the applet's existing mechanism rather than a parallel worksheet simulation.</p>
+      <ol class="spine" aria-label="Quick Assign inquiry sequence">
+        <li>Predict</li>
+        <li>Manipulate or run</li>
+        <li>Observe</li>
+        <li>Explain</li>
+        <li>Transfer</li>
+      </ol>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Level 1 · Quick Assigns</h3>
+          <p>Fifteen permanent activity IDs give teachers canonical classroom links. Learners record mechanism-specific predictions, evidence, explanations, and transfer responses inside local browser surfaces that can be copied or printed.</p>
+        </article>
+        <article class="card">
+          <h3>Level 2 · Activity Pack canaries</h3>
+          <p>Two longer pilots, NN-1 and CNN-1, extend the same inquiry spine across connected experiments. They are evidence for the resource architecture, not a claim that every lab already has a longer Activity Pack.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="parity-title">
+      <p class="eyebrow">v1.8.1 parity work</p>
+      <h2 id="parity-title">The three newer lab surfaces reached the established learner depth</h2>
+      <p class="section-intro">Transformer Language Modeling, Agent Tool Use and Context Protocols, and Minimax/Alpha-Beta already shared the release shell, yet their learner sequence remained thinner than the first twelve applets. v1.8.1 closes that bounded gap.</p>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Scenario-led instruction</h3>
+          <p>Each of the three labs now includes one featured experiment, five predict–run–explain scenarios, a terminology primer, a step-by-step mechanism explanation, teacher prompts, and misconceptions in all four learner locales.</p>
+        </article>
+        <article class="card">
+          <h3>One mechanism state</h3>
+          <p>Scenario actions drive each lab's native controls. The Transformer, agent-runtime, and game-tree mechanisms were not replaced, and the teaching layer does not introduce a second simulation state.</p>
+        </article>
+        <article class="card">
+          <h3>Shared interaction shell</h3>
+          <p>Share, Embed, JSON, and Reset use the established action-row pattern. Quick Assign state capture is learner-triggered, and accessibility guidance points to each lab's native text state rather than an always-open duplicate mirror.</p>
+        </article>
+        <article class="card">
+          <h3>Dark-theme legibility</h3>
+          <p>The parity pass adds explicit contrast treatment for headings and actions, Transformer mask and warning surfaces, agent semantic states, and Minimax controls, traces, comparisons, tree nodes, and pruning states.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="verification-title">
+      <p class="eyebrow">Verification</p>
+      <h2 id="verification-title">A layered release boundary, not one test count</h2>
+      <p class="section-intro">The original 45-test algorithm harness remains an inherited layer. Current assurance also includes lab-specific references, cross-runtime parity, localization and state contracts, deterministic composition, and browser behavior. For that reason, the historical 45/63 pair is retained as provenance rather than reused as the present release total.</p>
+      <ol class="assurance-list">
+        <li><span><strong>Algorithm and reference checks</strong>Deterministic regression, independent references where applicable, cross-runtime parity, and targeted gates for later labs and opt-in mechanism modes.</span></li>
+        <li><span><strong>Deterministic final composition</strong>The exact v1.8.1 artifact is built twice and all 58 deployed-file hashes are compared. Final JSON blocks are parsed and executable inline scripts are compiled after wrapper composition.</span></li>
+        <li><span><strong>Browser and HCI state transitions</strong>Automated checks exercise responsive containment, four-locale response preservation, the fifteen scenario actions across the three parity labs, shared header geometry, dark-theme contrast, canonical state behavior, embed mode, and recovery paths.</span></li>
+        <li><span><strong>Release and provenance controls</strong>Metadata, public composition, release tag, source revision, and deployment sequencing are checked so the published claim boundary identifies the verified artifact.</span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="claims-title">
+      <p class="eyebrow">Evidence boundary</p>
+      <h2 id="claims-title">What the release evidence supports</h2>
+      <div class="boundary-grid">
+        <article class="boundary supported">
+          <h3>Supported under tested conditions</h3>
+          <p>Software behavior, deterministic composition, selected algorithm/reference relations, release integrity, supported-path locale and state preservation, responsive interaction behavior, and representative contrast measurements.</p>
+        </article>
+        <article class="boundary not-supported">
+          <h3>Not established by software checks</h3>
+          <p>Measured learning gains, classroom adoption, comparative educational effectiveness, universal learner preference, translation naturalness for every learner group, accessibility conformance, equitable access, or production-system equivalence.</p>
+        </article>
+      </div>
+      <p class="note">The applets are inspectable teaching implementations. Their fidelity notes define which mechanism is represented and where the model stops; release verification does not convert a bounded teaching model into a claim about a full production solver, frontier language model, deployed agent, or hardware-performance benchmark.</p>
+    </section>
+
+    <section aria-labelledby="privacy-title">
+      <p class="eyebrow">Privacy and reuse</p>
+      <h2 id="privacy-title">Local learner work, explicit analytics limits</h2>
+      <p class="section-intro">AI Playgrounds has no student accounts, submission backend, database, or student-upload endpoint. Built-in packet, Quick Assign, and Activity Pack responses remain in the learner's browser until copied, printed, exported, cleared, or otherwise handled by the learner or teacher.</p>
+      <p>The canonical site uses privacy-minimized aggregate analytics for canonical page/event identifiers and allow-listed campaign attribution. It excludes learner answers, experiment values, query-state payloads, names, grades, and general referrer URLs. Global Privacy Control, Do Not Track, local opt-out, offline copies, localhost, and non-canonical mirrors disable project analytics.</p>
+    </section>
+
+    <section aria-labelledby="role-title">
+      <p class="eyebrow">Role demonstrated</p>
+      <h2 id="role-title">Design, implementation, pedagogy, and assurance as one system</h2>
+      <p>Product design, front-end implementation, bounded AI mechanism modeling, multilingual instructional design, teacher-resource architecture, deterministic and browser verification, release engineering, research provenance, and privacy-minimized analytics.</p>
+    </section>
+
+    <footer>
+      <p><a href="../">Return to the portfolio</a> · <a href="https://lmdixon23.github.io/ai-playgrounds/?ap_src=portfolio">Open AI Playgrounds</a> · <a href="https://github.com/lmdixon23/ai-playgrounds">Inspect the source</a></p>
+    </footer>
+  </main>
+
 <!-- AI Playgrounds aggregate analytics: canonical host only; no cookies; no third-party script; DNT/GPC and opt-out respected. -->
 <script>
 (function () {
@@ -78,4 +457,5 @@
   if (SOURCE_ALLOWLIST.has(source)) send('/event/campaign/' + source);
 })();
 </script>
-</body></html>
+</body>
+</html>

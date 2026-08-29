@@ -198,6 +198,32 @@ def main() -> None:
                 f"historical repository appears on current-research surface: "
                 f"{repository}"
             )
+
+    current_ai_playgrounds_tokens = (
+        "15 learner labs · 15 Quick Assigns · EN/ZH/VI/ES learner support · offline-ready",
+        "https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.8.1",
+        "Historical v1.0.1 DOI",
+    )
+    for token in current_ai_playgrounds_tokens:
+        if token not in text:
+            fail(f"current AI Playgrounds portfolio boundary is missing: {token}")
+
+    case_study = (ROOT / "projects/ai-playgrounds.html").read_text(encoding="utf-8")
+    case_study_tokens = (
+        "15 learner labs",
+        "15 Level-1 Quick Assigns",
+        "EN · ZH · VI · ES learner support",
+        "58-file deterministic artifact",
+        "Current product boundary",
+        "Immutable historical snapshot",
+        "DOI 10.5281/zenodo.21854217",
+        "Those product and test counts describe the historical archive.",
+        "not established by software checks",
+    )
+    for token in case_study_tokens:
+        if token.lower() not in case_study.lower():
+            fail(f"AI Playgrounds case-study boundary is missing: {token}")
+
     for public_link in REQUIRED_PUBLIC_LINKS:
         if public_link not in parser.hrefs:
             fail(f"required public identity link is missing: {public_link}")
