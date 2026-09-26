@@ -6,7 +6,7 @@ The site presents current mathematical research, reproducible repositories, AI s
 
 ## Current public highlights
 
-- **AI Playgrounds** — current v1.8.1 educational-software release with 15 multilingual, offline-ready learner labs, 15 Level-1 Quick Assigns, and tested EN/ZH/VI/ES learner support. The immutable v1.0.1 historical snapshot remains archived at <https://doi.org/10.5281/zenodo.21854217>; that version DOI is not assigned to v1.8.1.
+- **AI Playgrounds** — current [v1.9.6 educational-software release](https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.9.6) with 15 multilingual, offline-ready learner labs, 15 Level-1 Quick Assigns, and a standalone HTML download for every lab. Learner interfaces and Quick Assigns support English, Simplified Chinese, Vietnamese, and Spanish; some supporting teaching materials have narrower language coverage. The release improves classroom draft recovery, keyboard navigation, and instructional accuracy. The broader manual file/lab audit remains unfinished. The immutable v1.0.1 historical snapshot remains archived at <https://doi.org/10.5281/zenodo.21854217>; that version DOI does not identify v1.9.6.
 - **EvalCanary** — evaluator-migration diff tooling for fixed-corpus before/after verifier analysis, provenance, subgroup review, and CI policy gates.
 - **Current mathematical research** — SONC nonseparability/exactness; asymptotic-polygon global inversion for planar ridge networks; the planar four-ridge Neural Jacobian counterexample and sharp hidden-width threshold; and colored braid groupoid representation kernels.
 

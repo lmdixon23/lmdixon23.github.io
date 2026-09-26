@@ -201,7 +201,8 @@ def main() -> None:
 
     current_ai_playgrounds_tokens = (
         "15 learner labs · 15 Quick Assigns · EN/ZH/VI/ES learner support · offline-ready",
-        "https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.8.1",
+        "current v1.9.6 release",
+        "https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.9.6",
         "Historical v1.0.1 DOI",
     )
     for token in current_ai_playgrounds_tokens:
@@ -210,19 +211,50 @@ def main() -> None:
 
     case_study = (ROOT / "projects/ai-playgrounds.html").read_text(encoding="utf-8")
     case_study_tokens = (
+        "<title>AI Playgrounds v1.9.6 — Project case study</title>",
+        "current release v1.9.6",
+        "https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.9.6",
         "15 learner labs",
         "15 Level-1 Quick Assigns",
         "EN · ZH · VI · ES learner support",
-        "58-file deterministic artifact",
+        "15 standalone HTML downloads",
         "Current product boundary",
         "Immutable historical snapshot",
         "DOI 10.5281/zenodo.21854217",
+        "The v1.0.1 DOI does not identify v1.9.6.",
         "Those product and test counts describe the historical archive.",
+        "Some educator and support pages remain English/Chinese or English-only.",
+        "The broader manual file/lab audit remains unfinished",
+        "Human learner, educator, and screen-reader validation is deferred.",
         "not established by software checks",
     )
     for token in case_study_tokens:
         if token.lower() not in case_study.lower():
             fail(f"AI Playgrounds case-study boundary is missing: {token}")
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    readme_tokens = (
+        "current [v1.9.6 educational-software release]",
+        "https://github.com/lmdixon23/ai-playgrounds/releases/tag/v1.9.6",
+        "15 multilingual, offline-ready learner labs",
+        "15 Level-1 Quick Assigns",
+        "The broader manual file/lab audit remains unfinished.",
+        "https://doi.org/10.5281/zenodo.21854217",
+        "that version DOI does not identify v1.9.6.",
+    )
+    for token in readme_tokens:
+        if token not in readme:
+            fail(f"AI Playgrounds README boundary is missing: {token}")
+
+    for label, surface in (
+        ("homepage", text), ("case study", case_study), ("README", readme)
+    ):
+        release_links = set(re.findall(
+            r"https://github\.com/lmdixon23/ai-playgrounds/releases/tag/(v[0-9.]+)",
+            surface,
+        ))
+        if release_links != {"v1.9.6"}:
+            fail(f"AI Playgrounds {label} has unexpected release links: {sorted(release_links)}")
 
     for public_link in REQUIRED_PUBLIC_LINKS:
         if public_link not in parser.hrefs:
