@@ -131,6 +131,8 @@ def main() -> None:
     for relative in PUBLIC_HTML:
         public_path = ROOT / relative
         public_text = public_path.read_text(encoding="utf-8")
+        if "Logan Dixon" in public_text:
+            fail(f"{relative} uses the shortened public name")
         if not public_text.lower().startswith("<!doctype html>"):
             fail(f"{relative} has no HTML5 doctype or contains an unexpected BOM")
 
@@ -273,7 +275,7 @@ def main() -> None:
         structured = json.loads(parser.json_ld[0])
     except json.JSONDecodeError as error:
         fail(f"invalid JSON-LD: {error}")
-    if structured.get("@type") != "Person" or structured.get("name") != "Logan Dixon":
+    if structured.get("@type") != "Person" or structured.get("name") != "Logan M. Dixon":
         fail("JSON-LD person identity is incorrect")
     if structured.get("url") != "https://lmdixon23.github.io/":
         fail("JSON-LD URL is incorrect")
