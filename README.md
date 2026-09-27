@@ -1,6 +1,6 @@
 # lmdixon23.github.io
 
-Public research site for Logan Dixon, live at <https://lmdixon23.github.io/>.
+Public research site for Logan M. Dixon, live at <https://lmdixon23.github.io/>.
 
 The site presents current mathematical research, reproducible repositories, AI systems work, and interactive teaching tools. It is a static site with no application framework or advertising. It uses privacy-minimized aggregate analytics that honor DNT/GPC and a local opt-out; experiment values, student responses, names, email addresses, and arbitrary query strings are not sent.
 
